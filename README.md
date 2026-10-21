@@ -1,18 +1,27 @@
 # RoomieSettler
 
+## Team Information
+
 **Team Name:** BillBuddies
 
-## Team Members
+**Team Members:**
 - Ziye Xu
 - Wanshu Jiang
 - Xingyu Zhou
 - Binyu Pei
 
 ## Project Purpose
-RoomieSettler is a shared expense-splitting application that helps friends and roommates manage group expenses. Users can record shared expenses, add receipt items with prices and quantities, assign items to participants, calculate subtotals and taxes, determine each person's total share, convert between USD and RMB, and simplify debts to make settling payments easier.
+
+RoomieSettler is a shared expense-splitting application designed to help roommates and groups manage shared expenses. Users can record expenses, add receipt items, assign costs to participants, calculate individual totals, and determine how much each person owes. The goal is to make splitting bills easier, clearer, and more accurate.
 
 ## Planned Technology
-We plan to develop RoomieSettler as a cloud-hosted application. The specific programming language, framework, and other technologies will be selected and confirmed by the team.
 
-## Open Question
-We are still exploring how to allocate taxes fairly when expenses contain shared items or tax-exempt items, as mentioned during our customer validation.
+We plan to develop RoomieSettler as a cloud-hosted application. The team will select and confirm the programming language, framework, database, and hosting platform based on project requirements and team experience. The application is intended to be accessible through the cloud.
+
+## Open Questions
+
+We are still exploring how to allocate taxes fairly when expenses contain shared items or tax-exempt items. We need to determine an approach that calculates each participant's tax share accurately and fairly.
+
+## Project Status
+
+The team is currently working on requirements analysis, user stories, use case modeling, and the application design. Implementation details and the final technology stack will be confirmed as the project progresses.
