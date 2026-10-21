@@ -12,7 +12,7 @@
 
 ## Project Purpose
 
-RoomieSettler is a shared expense-splitting application designed to help roommates and groups manage shared expenses. Users can record expenses, add receipt items, assign costs to participants, calculate individual totals, and determine how much each person owes. The goal is to make splitting bills easier, clearer, and more accurate.
+RoomieSettler is a shared expense-splitting application designed to help roommates and groups manage shared expenses. Users can record expenses, add receipt items, assign costs to participants, calculate individual totals, convert different currencies and determine how much each person owes. The goal is to make splitting bills easier, clearer, and more accurate.
 
 ## Planned Technology
 
