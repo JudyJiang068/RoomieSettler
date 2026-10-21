@@ -1,5 +1,9 @@
 # RoomieSettler
 
+This repository is public so instructors and TAs can view its contents. The README file includes our team name, all team members, and the project overview. Every team member has created at least one commit under their individual GitHub account.
+In the README, we documented our planned technology stack for implementing the expense-splitting system and one open question we have regarding implementation.
+
+
 ## Team Information
 
 **Team Name:** BillBuddies
@@ -12,7 +16,7 @@
 
 ## Project Purpose
 
-RoomieSettler is a shared expense-splitting application designed to help roommates and groups to manage group costs. Users can record expenses, add receipt items, assign costs to participants, calculate individual totals, convert different currencies and determine how much each person owes. The goal is to make splitting bills easier, clearer, and more accurate.
+RoomieSettler is a shared expense-splitting application designed to help roommates and groups manage shared expenses. Users can record expenses, add receipt items, assign costs to participants, calculate individual totals, convert different currencies and determine how much each person owes. The goal is to make splitting bills easier, clearer, and more accurate.
 
 ## Planned Technology
 
