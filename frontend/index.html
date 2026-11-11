@@ -1,0 +1,134 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>RoomieSettler</title>
+
+    <link rel="stylesheet" href="/style.css">
+</head>
+
+<body>
+
+    <!-- Navigation -->
+    <nav class="sidebar">
+        <h2>RoomieSettler</h2>
+
+        <a href="#" onclick="showPage('dashboard')">Dashboard</a>
+        <a href="#" onclick="showPage('bills')">Bills</a>
+        <a href="#" onclick="showPage('settlement')">Settlement</a>
+        <a href="#" onclick="showPage('currency')">Currency</a>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="main-content">
+
+        <header>
+            <h1 id="page-title">Dashboard</h1>
+            <p>Manage shared expenses with your roommates.</p>
+        </header>
+
+        <!-- Dashboard -->
+        <section id="dashboard" class="page">
+
+            <div class="cards">
+
+                <div class="card">
+                    <h3>Total Expenses</h3>
+                    <p>$1,200.00</p>
+                </div>
+
+                <div class="card">
+                    <h3>Your Share</h3>
+                    <p>$300.00</p>
+                </div>
+
+                <div class="card">
+                    <h3>Roommates</h3>
+                    <p>4</p>
+                </div>
+
+            </div>
+
+            <h2>Quick Actions</h2>
+
+            <button onclick="showPage('bills')">
+                View Bills
+            </button>
+
+            <button onclick="showPage('settlement')">
+                View Settlement
+            </button>
+
+        </section>
+
+        <!-- Bills -->
+        <section id="bills" class="page hidden">
+            <h2>Bill Management</h2>
+            <p>Manage shared bills and expenses.</p>
+
+            <button onclick="addBill()">
+                Add Bill
+            </button>
+
+            <ul id="bill-list"></ul>
+        </section>
+
+        <!-- Settlement -->
+        <section id="settlement" class="page hidden">
+
+            <h2>Settlement Summary</h2>
+
+            <p>Calculate how much each roommate owes.</p>
+
+            <div class="calculator-form">
+
+                <label for="bill-amount">
+                    Total Bill Amount ($)
+                </label>
+
+                <input
+                        type="number"
+                        id="bill-amount"
+                        placeholder="Enter amount"
+                        min="0.01"
+                        step="0.01"
+                >
+
+                <label for="people-count">
+                    Number of People
+                </label>
+
+                <input
+                        type="number"
+                        id="people-count"
+                        placeholder="Enter number of people"
+                        min="1"
+                        step="1"
+                >
+
+                <button onclick="calculateSplit()">
+                    Calculate Split
+                </button>
+
+                <div id="split-result"></div>
+
+            </div>
+
+        </section>
+
+        <!-- Currency -->
+        <section id="currency" class="page hidden">
+            <h2>Currency Conversion</h2>
+            <p>Currency conversion will be available here.</p>
+        </section>
+
+    </main>
+
+    <script src="/script.js" defer></script>
+
+</body>
+</html>
