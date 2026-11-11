@@ -66,8 +66,6 @@ RoomieSettler/
 └── README.md
 ```
 
-This structure assumes the nested `backend/backend/` directory from the original ZIP has been flattened to `backend/` before upload.
-
 | Sprint 3 subsystem | Current location / implementation | Status |
 | --- | --- | --- |
 | User Interface | `frontend/` and `backend/src/main/resources/static/` | Initial UI implemented |
