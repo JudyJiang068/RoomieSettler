@@ -1,8 +1,9 @@
+
 # RoomieSettler
 
 ## 1. Project Overview
 
-RoomieSettler is a shared-expense application designed to help students track bills, divide expenses, and plan settlements. This Sprint 4 repository contains an initial locally running web application and a basic equal-split calculation API. It is a project skeleton, not a complete implementation of all planned features.
+RoomieSettler is a shared-expense application designed to help students track bills, divide expenses, and plan settlements. The current repository contains an initial web application designed to run locally and a basic equal-split calculation API. It is a project skeleton, not a complete implementation of all planned features.
 
 ## 2. Tech Stack
 
@@ -15,11 +16,11 @@ RoomieSettler is a shared-expense application designed to help students track bi
 | Database | Not implemented | Persistence is planned |
 | Hosting | Local computer, port 8080 | Cloud deployment is planned, not active |
 
-The team's design rationale for these choices is documented in the Sprint 4 report.
+The technology choices support the current browser-based interface, Java backend, and local development workflow.
 
 ## 3. System Architecture
 
-Sprint 3 selected a **modular architecture** with six subsystems:
+RoomieSettler follows a **modular architecture** designed around six subsystems:
 
 1. **User Interface** — receives expense and participant input and displays results.
 2. **Application Coordination** — coordinates user requests and business operations.
@@ -28,13 +29,13 @@ Sprint 3 selected a **modular architecture** with six subsystems:
 5. **Currency Conversion** — applies exchange rates and currency rounding.
 6. **Data Management** — stores expense, participant, and historical data.
 
-### Sprint 3 subsystem/component diagram
+### Subsystem/Component Diagram
 
-![Sprint 3 subsystem diagram](docs/subsystem-diagram.png)
+![Subsystem diagram](docs/subsystem-diagram.png)
 
-### Sprint 4 deployment diagram
+### Deployment Diagram
 
-![Sprint 4 deployment diagram](docs/deployment-diagram.png)
+![Deployment diagram](docs/deployment-diagram.png)
 
 **Current deployment:** The web browser and Spring Boot/Tomcat backend run on one local computer. The browser communicates with the backend using HTTP at `localhost:8080`. The deployment diagram shows the intended placement of all six subsystems; **only the basic UI, request handling, and equal-split calculation are implemented so far**. The Bill & Expense Management, Currency Conversion, and Data Management business functions shown in the diagram are planned rather than fully deployed. Cloud deployment is also planned, not implemented.
 
@@ -66,7 +67,7 @@ RoomieSettler/
 └── README.md
 ```
 
-| Sprint 3 subsystem | Current location / implementation | Status |
+| Subsystem | Current location / implementation | Status |
 | --- | --- | --- |
 | User Interface | `frontend/` and `backend/src/main/resources/static/` | Initial UI implemented |
 | Application Coordination | `backend/src/main/java/com/financialcalculator/controller/` | Basic API request handling |
@@ -118,7 +119,7 @@ Expected JSON response (field ordering may vary):
 
 The endpoint rejects non-positive amounts and non-positive participant counts with an error response.
 
-**Verification note:** These commands and expected outputs are based on the project source and configuration; each team member should confirm the application runs on their own machine. If the project is uploaded without flattening the nested backend folder, change the `cd` path accordingly.
+**Verification note:** These commands and expected outputs are based on the project source and configuration; each team member should confirm the application runs on their own machine.
 
 ## 6. Implemented Features and Limitations
 
@@ -135,7 +136,7 @@ The endpoint rejects non-positive amounts and non-positive participant counts wi
 - Full item-level assignment, taxes, and configurable splitting rules
 - Complete debt simplification and settlement workflow
 - Live exchange-rate retrieval and currency conversion
-- Access control and complete integration of all six Sprint 3 subsystems
+- Access control and complete integration of all six planned subsystems
 - Cloud deployment
 
 The equal-split API rounds each person's share to two decimal places. It does not yet implement a remainder-allocation process to guarantee that rounded shares sum exactly to the receipt total for every input.
@@ -151,7 +152,7 @@ Initial screenshots are stored at:
 
 ![Frontend integration](docs/screenshots/frontend-integration.png)
 
-The Sprint 4 submission PDF separately records whether **each team member** cloned and ran the project on their own computer, including any problems encountered.
+Each team member should independently clone and run the project to verify that the setup instructions work on their computer.
 
 ## 8. Security and Development Notes
 
