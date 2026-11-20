@@ -3,132 +3,196 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport"
-          content="width=device-width, initial-scale=1.0">
-
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>RoomieSettler</title>
-
     <link rel="stylesheet" href="/style.css">
 </head>
 
 <body>
 
-    <!-- Navigation -->
-    <nav class="sidebar">
-        <h2>RoomieSettler</h2>
+<nav class="sidebar">
+    <h2>RoomieSettler</h2>
+    <a href="#" onclick="showPage('dashboard')">Dashboard</a>
+    <a href="#" onclick="showPage('bills')">Bills</a>
+    <a href="#" onclick="showPage('settlement')">Settlement</a>
+    <a href="#" onclick="showPage('currency')">Currency</a>
+</nav>
 
-        <a href="#" onclick="showPage('dashboard')">Dashboard</a>
-        <a href="#" onclick="showPage('bills')">Bills</a>
-        <a href="#" onclick="showPage('settlement')">Settlement</a>
-        <a href="#" onclick="showPage('currency')">Currency</a>
-    </nav>
+<main class="main-content">
 
-    <!-- Main Content -->
-    <main class="main-content">
+    <header>
+        <h1 id="page-title">Dashboard</h1>
+        <p>Manage shared expenses with your roommates.</p>
+    </header>
 
-        <header>
-            <h1 id="page-title">Dashboard</h1>
-            <p>Manage shared expenses with your roommates.</p>
-        </header>
-
-        <!-- Dashboard -->
-        <section id="dashboard" class="page">
-
-            <div class="cards">
-
-                <div class="card">
-                    <h3>Total Expenses</h3>
-                    <p>$1,200.00</p>
-                </div>
-
-                <div class="card">
-                    <h3>Your Share</h3>
-                    <p>$300.00</p>
-                </div>
-
-                <div class="card">
-                    <h3>Roommates</h3>
-                    <p>4</p>
-                </div>
-
+    <!-- Dashboard -->
+    <section id="dashboard" class="page">
+        <div class="cards">
+            <div class="card">
+                <h3>Total Expenses</h3>
+                <p id="dashboard-total">$0.00</p>
             </div>
-
-            <h2>Quick Actions</h2>
-
-            <button onclick="showPage('bills')">
-                View Bills
-            </button>
-
-            <button onclick="showPage('settlement')">
-                View Settlement
-            </button>
-
-        </section>
-
-        <!-- Bills -->
-        <section id="bills" class="page hidden">
-            <h2>Bill Management</h2>
-            <p>Manage shared bills and expenses.</p>
-
-            <button onclick="addBill()">
-                Add Bill
-            </button>
-
-            <ul id="bill-list"></ul>
-        </section>
-
-        <!-- Settlement -->
-        <section id="settlement" class="page hidden">
-
-            <h2>Settlement Summary</h2>
-
-            <p>Calculate how much each roommate owes.</p>
-
-            <div class="calculator-form">
-
-                <label for="bill-amount">
-                    Total Bill Amount ($)
-                </label>
-
-                <input
-                        type="number"
-                        id="bill-amount"
-                        placeholder="Enter amount"
-                        min="0.01"
-                        step="0.01"
-                >
-
-                <label for="people-count">
-                    Number of People
-                </label>
-
-                <input
-                        type="number"
-                        id="people-count"
-                        placeholder="Enter number of people"
-                        min="1"
-                        step="1"
-                >
-
-                <button onclick="calculateSplit()">
-                    Calculate Split
-                </button>
-
-                <div id="split-result"></div>
-
+            <div class="card">
+                <h3>Your Share</h3>
+                <p>See Settlement</p>
             </div>
+            <div class="card">
+                <h3>Shared Bills</h3>
+                <p id="dashboard-bills">0</p>
+            </div>
+        </div>
 
-        </section>
+        <h2>Quick Actions</h2>
+        <button onclick="showPage('bills')">Manage Bills</button>
+        <button onclick="showPage('settlement')">View Settlement</button>
+    </section>
 
-        <!-- Currency -->
-        <section id="currency" class="page hidden">
-            <h2>Currency Conversion</h2>
-            <p>Currency conversion will be available here.</p>
-        </section>
+    <!-- Bills -->
+    <section id="bills" class="page hidden">
 
-    </main>
+        <h2>Bill Management</h2>
+        <p>Create a shared bill and enter receipt items.</p>
 
-    <script src="/script.js" defer></script>
+        <div class="calculator-form">
+            <h3>Create New Bill</h3>
+
+            <label for="bill-title">Bill Name</label>
+            <input type="text" id="bill-title"
+                   placeholder="e.g. Apartment Groceries">
+
+            <label for="bill-currency">Currency</label>
+            <select id="bill-currency">
+                <option value="USD">USD ($)</option>
+                <option value="CNY">CNY (¥)</option>
+            </select>
+
+            <button onclick="createBill()">Create Bill</button>
+            <p id="create-bill-result"></p>
+        </div>
+
+        <hr>
+
+        <h3>Existing Bills</h3>
+        <button onclick="loadBills()">Refresh Bills</button>
+        <ul id="bill-list"></ul>
+
+        <hr>
+
+        <div class="calculator-form">
+            <h3>Add Receipt Item</h3>
+
+            <label for="selected-bill">Select Bill</label>
+            <select id="selected-bill">
+                <option value="">Select a bill</option>
+            </select>
+
+            <label for="item-name">Item Name</label>
+            <input type="text" id="item-name"
+                   placeholder="e.g. Milk">
+
+            <label for="item-amount">Item Amount</label>
+            <input type="number" id="item-amount"
+                   min="0.01" step="0.01"
+                   placeholder="Enter amount">
+
+            <button onclick="addItem()">Add Item</button>
+            <p id="add-item-result"></p>
+        </div>
+
+        <h3>Receipt Items</h3>
+        <button onclick="loadItems()">Refresh Items</button>
+        <ul id="item-list"></ul>
+
+    </section>
+
+    <!-- Settlement -->
+    <section id="settlement" class="page hidden">
+
+        <h2>Settlement Summary</h2>
+        <p>Assign expenses and calculate each roommate's total.</p>
+
+        <div class="calculator-form">
+
+            <h3>Assign Expense Shares</h3>
+
+            <label for="share-bill">Select Bill</label>
+            <select id="share-bill">
+                <option value="">Select a bill</option>
+            </select>
+
+            <label for="share-item">Select Receipt Item</label>
+            <select id="share-item">
+                <option value="">Select an item</option>
+            </select>
+
+            <label for="member-name">Member Name</label>
+            <input type="text" id="member-name"
+                   placeholder="e.g. Alice">
+
+            <label for="share-amount">Share Amount</label>
+            <input type="number" id="share-amount"
+                   min="0" step="0.01"
+                   placeholder="Enter amount">
+
+            <button onclick="addShareRow()">Add Member Share</button>
+
+            <ul id="share-list"></ul>
+
+            <button onclick="saveShares()">Save Expense Shares</button>
+            <p id="share-result"></p>
+
+        </div>
+
+        <hr>
+
+        <div class="calculator-form">
+
+            <h3>Individual Totals</h3>
+
+            <label for="total-bill">Select Bill</label>
+            <select id="total-bill">
+                <option value="">Select a bill</option>
+            </select>
+
+            <button onclick="loadTotals()">Calculate Individual Totals</button>
+
+            <ul id="total-list"></ul>
+
+        </div>
+
+        <hr>
+
+        <div class="calculator-form">
+
+            <h3>Equal Split Calculator</h3>
+
+            <label for="bill-amount">Total Bill Amount ($)</label>
+            <input type="number" id="bill-amount"
+                   min="0.01" step="0.01"
+                   placeholder="Enter amount">
+
+            <label for="people-count">Number of People</label>
+            <input type="number" id="people-count"
+                   min="1" step="1"
+                   placeholder="Enter number of people">
+
+            <button onclick="calculateSplit()">Calculate Split</button>
+
+            <div id="split-result"></div>
+
+        </div>
+
+    </section>
+
+    <!-- Currency -->
+    <section id="currency" class="page hidden">
+        <h2>Currency Conversion</h2>
+        <p>Currency conversion will be available here.</p>
+    </section>
+
+</main>
+
+<script src="/script.js" defer></script>
 
 </body>
 </html>
