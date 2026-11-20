@@ -3,7 +3,7 @@
 
 ## 1. Project Overview
 
-RoomieSettler is a shared-expense application designed to help students track bills, divide expenses, and plan settlements. The current repository contains an initial web application designed to run locally and a basic equal-split calculation API. It is a project skeleton, not a complete implementation of all planned features.
+RoomieSettler is a shared-expense application designed to help students track bills, divide expenses, and plan settlements. The current repository contains an initial web application designed to run locally and a basic equal-split calculation API. It is a project skeleton, not a complete implementation of all planned features. The application supports bill management, expense item management, expense splitting, and expense calculations.
 
 ## 2. Tech Stack
 
