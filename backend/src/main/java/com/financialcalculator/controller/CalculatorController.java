@@ -8,9 +8,11 @@ import org.springframework.http.ResponseEntity;
 
 import java.math.BigDecimal;
 import java.util.Map;
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/calculator")
+@CrossOrigin(origins = "*")
 public class CalculatorController {
 
     private final CalculatorService calculatorService;
@@ -20,6 +22,7 @@ public class CalculatorController {
         this.calculatorService = calculatorService;
     }
 
+    // Original equal split API
     @GetMapping("/split")
     public ResponseEntity<?> calculateSplit(
             @RequestParam BigDecimal amount,
@@ -39,5 +42,22 @@ public class CalculatorController {
                     Map.of("error", e.getMessage())
             );
         }
+    }
+
+    // Calculate individual totals for a bill
+    @GetMapping("/totals")
+    public ResponseEntity<?> getIndividualTotals(
+            @RequestParam Long billId) {
+
+        if (billId == null || billId <= 0) {
+            return ResponseEntity.badRequest().body(
+                    Map.of("error", "Invalid bill ID.")
+            );
+        }
+
+        List<Map<String, Object>> totals =
+                calculatorService.getIndividualTotals(billId);
+
+        return ResponseEntity.ok(totals);
     }
 }
