@@ -9,7 +9,7 @@ When people share bills, some expenses are divided equally among everyone, some 
 
 RoomieSettler simplifies this process by organizing bills, managing individual expense items, calculating expense shares, and helping users understand how much each person owes.
 
-The application provides a web-based interface, a Java Spring Boot backend, and MySQL database integration to support expense management and calculations.
+The application provides a web-based interface, a Java Spring Boot backend, and MySQL database integration. Users can create bills, add expense items, assign expenses to individual members, and calculate expense shares through the application.
 
 ## 2. Tech Stack
 
@@ -17,9 +17,9 @@ The application provides a web-based interface, a Java Spring Boot backend, and 
 | --- | --- | --- |
 | Frontend | HTML, CSS, JavaScript | Browser-based interface |
 | Backend | Java 17, Spring Boot 3.5.6 | Local REST API and calculation logic |
-| Database | MySQL, Spring JDBC, JdbcTemplate | Database operations |
-| Build tool | Maven | Backend dependencies and execution |
-| API | HTTP / REST (JSON) | Browser-to-backend communication |
+| Database | MySQL, Spring JDBC, JdbcTemplate | Database operations and data persistence |
+| Build tool | Maven | Backend dependencies and project execution |
+| API | HTTP / REST (JSON) | Communication between frontend and backend |
 | IDE | IntelliJ IDEA | Development environment |
 | Version Control | Git and GitHub | Source control and collaboration |
 | Hosting | Local computer, port 8080 | Local application execution |
@@ -28,14 +28,14 @@ The technology choices support the current browser-based interface, Java backend
 
 ## 3. System Architecture
 
-RoomieSettler follows a **modular architecture** designed around six subsystems:
+RoomieSettler follows a modular architecture organized around six logical subsystems:
 
-1. **User Interface** — receives expense and participant input and displays results.
-2. **Application Coordination** — coordinates user requests and business operations.
-3. **Bill & Expense Management** — manages bills, expense items, and splitting rules.
-4. **Calculation & Settlement** — calculates participant shares and settlement results.
-5. **Currency Conversion** — applies exchange rates and currency rounding.
-6. **Data Management** — stores expense, participant, and historical data.
+1. **User Interface** — Receives user input and displays bills, expense items, and calculation results.
+2. **Application Coordination** — Handles user requests and coordinates application operations through REST controllers.
+3. **Bill & Expense Management** — Supports bill creation, expense item management, and expense-sharing assignments.
+4. **Calculation & Settlement** — Calculates equal expense splits and individual expense totals.
+5. **Currency Conversion** — Designed to support currency conversion and exchange-rate calculations in future development.
+6. **Data Management** — Uses MySQL and Spring JDBC to store and retrieve bill and expense information.
 
 ### Subsystem/Component Diagram
 
@@ -65,16 +65,23 @@ RoomieSettler/
 │       │   │       └── financialcalculator/
 │       │   │           ├── CalculatorApplication.java
 │       │   │           ├── controller/
-│       │   │           │   └── CalculatorController.java
-│       │   │           ├── service/
-│       │   │           │   └── CalculatorService.java
-│       │   │           └── model/
-│       │   │               └── SplitResponse.java
-│       │   │
+│       │   │           │   ├── BillController.java
+│       │   │           │   ├── BillItemController.java
+│       │   │           │   ├── CalculatorController.java
+│       │   │           │   └── ExpenseShareController.java
+│       │   │           ├── model/
+│       │   │           │   ├── Bill.java
+│       │   │           │   ├── BillItem.java
+│       │   │           │   ├── ExpenseShare.java
+│       │   │           │   └── SplitResponse.java
+│       │   │           └── service/
+│       │   │               └── CalculatorService.java
 │       │   └── resources/
 │       │       ├── application.properties
 │       │       └── static/
-│       │
+│       │           ├── index.html
+│       │           ├── script.js
+│       │           └── style.css
 │       └── test/
 │
 ├── docs/
@@ -88,16 +95,18 @@ RoomieSettler/
 └── user-stories.md
 ```
 
-| Subsystem | Current location / implementation | Status |
-| --- | --- | --- |
+| Subsystem | Current Location / Implementation | Status |
+|---|---|---|
 | User Interface | `frontend/` and `backend/src/main/resources/static/` | Initial UI implemented |
-| Application Coordination | `backend/src/main/java/com/financialcalculator/controller/` | API request handling implemented |
-| Calculation & Settlement | `backend/src/main/java/com/financialcalculator/service/` and `model/` | Expense calculation and splitting implemented |
-| Bill & Expense Management | Bill creation, bill retrieval, and expense item management functionality | Core functionality implemented |
-| Currency Conversion | UI placeholder; no conversion service | Planned |
+| Application Coordination | `backend/src/main/java/com/financialcalculator/controller/` | REST API request handling implemented |
+| Bill & Expense Management | `BillController.java`, `BillItemController.java`, and `ExpenseShareController.java` | Core functionality implemented |
+| Calculation & Settlement | `CalculatorService.java` and model classes | Expense calculation and splitting implemented |
+| Currency Conversion | No current currency conversion service | Planned |
 | Data Management | MySQL database and Spring JDBC (`JdbcTemplate`) | Database integration implemented |
 
-The Java `controller`, `service`, and `model` packages represent the current technical implementation structure. They do not correspond to six fully independent subsystem modules. The subsystem mapping describes the system's logical architecture and its current implementation status. Additional modules or folders may be introduced as development continues.
+The Java `controller`, `service`, and `model` packages represent the current technical implementation structure. They do not correspond to six fully independent subsystem modules.
+
+The subsystem mapping describes the system's logical architecture and current implementation status. Additional modules or folders may be introduced as development continues.
 
 ## 5. How to Run Locally
 
@@ -150,20 +159,34 @@ DB_PASSWORD=your_mysql_password
 
 Important: Replace the example values with your own MySQL credentials. Never commit actual passwords or other sensitive information to GitHub.
 
-### Run the Backend
+### Run the Application
 
-1.Open the project in IntelliJ IDEA.
-2.Open the backend directory.
-3.Locate CalculatorApplication.java.
-4.Run the Spring Boot application.
+1. Open the project in IntelliJ IDEA.
+2. Open the `backend` directory.
+3. Locate `CalculatorApplication.java`:
 
-The backend uses port 8080 by default unless configured otherwise.
+   `backend/src/main/java/com/financialcalculator/CalculatorApplication.java`
 
-### Run the Frontend
+4. Run `CalculatorApplication.java` as a Java application.
+5. Wait for Spring Boot to finish starting.
 
-1.Open the frontend directory.
-2.Run or serve index.html using your preferred local web server.
-3.Make sure the frontend API configuration points to the correct backend address.
+The backend runs on port `8080` by default.
+
+### Access the Frontend
+
+The integrated frontend files are located in:
+
+`backend/src/main/resources/static/`
+
+Spring Boot automatically serves static resources from this directory.
+
+After the backend starts, open the following address in your browser:
+
+```text
+http://localhost:8080/
+```
+
+The frontend will be available through the Spring Boot application.
 
 ### Verify the Backend API
 
@@ -181,38 +204,100 @@ The exact endpoint and response should be verified against the current backend i
 
 ## 6. API Endpoints
 
-The backend provides REST API endpoints for bill management and expense sharing.
+The backend provides REST API endpoints for bill management, expense items, expense sharing, and calculations.
 
 | Method | Endpoint | Description |
 |---|---|---|
 | GET | `/api/bills` | Retrieve all bills |
-| POST | `/api/bills` | Create a bill |
+| POST | `/api/bills` | Create a new bill |
 | GET | `/api/bills/{billId}` | Retrieve a specific bill |
 | POST | `/api/bills/{billId}/items` | Add an expense item to a bill |
 | GET | `/api/bills/{billId}/items` | Retrieve expense items associated with a bill |
-| POST | `/api/items/{itemId}/shares` | Create expense shares |
-| GET | `/api/items/{itemId}/shares` | Retrieve expense shares |
+| POST | `/api/items/{itemId}/shares` | Assign expense shares to members |
+| GET | `/api/items/{itemId}/shares` | Retrieve expense shares for an item |
+| GET | `/api/calculator/split` | Calculate an equal expense split |
+| GET | `/api/calculator/totals` | Calculate individual expense totals for a bill |
 
-**Note:** Request formats and response structures should be verified against the current controller implementations.
+### Example API Requests
+
+**1. Create a Bill**
+
+`POST /api/bills`
+
+Request body:
+
+```json
+{
+  "title": "Weekend Trip",
+  "currency": "USD"
+}
+```
+
+**2. Add an Expense Item**
+
+`POST /api/bills/1/items`
+
+Request body:
+
+```json
+{
+  "itemName": "Dinner",
+  "amount": 200.00
+}
+```
+
+**3. Assign Expense Shares**
+
+`POST /api/items/1/shares`
+
+Request body:
+
+```json
+{
+  "shares": [
+    {
+      "memberName": "Alice",
+      "shareAmount": 100.00
+    },
+    {
+      "memberName": "Bob",
+      "shareAmount": 100.00
+    }
+  ]
+}
+```
+ok
+**4. Calculate an Equal Split**
+
+`GET /api/calculator/split?amount=100&people=4`
+
+**5. Calculate Individual Expense Totals**
+
+`GET /api/calculator/totals?billId=1`
+
+These examples demonstrate the main API operations currently supported by the backend.
 
 ## 7. Testing and Running Evidence
 
 ### Testing
 
-The project can be tested using:
+The application can be tested using the following approaches:
 
 - Manual API testing with Postman.
-- Database verification with MySQL Workbench.
-- Automated tests using JUnit and Spring Boot Test.
+- Database verification using MySQL Workbench.
+- Automated testing using JUnit and Spring Boot Test, if test cases are available.
 
 Important test scenarios include:
 
 - Creating and retrieving bills.
 - Adding expense items to bills.
-- Validating expense-sharing amounts.
+- Assigning expense shares to members.
+- Validating that expense shares match the item amount.
 - Handling invalid input.
 - Handling nonexistent bill or item IDs.
 - Verifying individual expense calculations.
+
+Testing should verify both successful operations and error-handling behavior.
 
 ### Running Evidence
 Initial screenshots are stored at:
