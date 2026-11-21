@@ -51,6 +51,10 @@ RoomieSettler follows a modular architecture organized around six logical subsys
 
 ```text
 RoomieSettler/
+├── .github/
+│   └── workflows/
+│       └── ci.yml
+│
 ├── frontend/
 │   ├── index.html
 │   ├── style.css
@@ -114,7 +118,7 @@ The subsystem mapping describes the system's logical architecture and current im
 
 Before running the application, make sure you have installed:
 - JDK 17
-- IntelliJ IDEA.
+- IntelliJ IDEA
 - MySQL Server and MySQL Workbench
 - Maven (or IntelliJ IDEA's built-in Maven)
 - Git
@@ -129,13 +133,13 @@ cd RoomieSettler
 
 ### Set Up the Database
 
-1.Start MySQL Server.
-2.Open MySQL Workbench.
-3.Create the project database:
+1. Start MySQL Server.
+2. Open MySQL Workbench.
+3. Create the project database:
 ```
 CREATE DATABASE roomiesettler;
 ```
-4.If database initialization SQL scripts are provided in the project, execute them to create the required tables.
+4. If database initialization SQL scripts are provided in the project, execute them to create the required tables.
 
 ### Configure the Database Connection
 
@@ -285,7 +289,7 @@ The application can be tested using the following approaches:
 
 - Manual API testing with Postman.
 - Database verification using MySQL Workbench.
-- Automated testing using JUnit and Spring Boot Test, if test cases are available.
+- Automated testing using Maven and JUnit.
 
 Important test scenarios include:
 
@@ -298,6 +302,16 @@ Important test scenarios include:
 - Verifying individual expense calculations.
 
 Testing should verify both successful operations and error-handling behavior.
+
+### Continuous Integration (CI)
+
+The project uses GitHub Actions to automatically build and test the backend when a pull request is opened or updated.
+
+- **Workflow file:** `.github/workflows/ci.yml`
+- **Failed CI Run:** https://github.com/JudyJiang068/RoomieSettler/actions/runs/44842364123
+- **Passing CI Run:** https://github.com/JudyJiang068/RoomieSettler/actions/runs/44842776276?pr=29
+
+The failed run demonstrates a CI failure during the development of PR #29. A subsequent run on the same pull request completed successfully, showing that the updated code passed the CI checks. The initial CI run for PR #29 failed during the Maven test phase. Maven Surefire reported test failures. A subsequent CI run for the same pull request completed successfully.
 
 ### Running Evidence
 Initial screenshots are stored at:
@@ -326,6 +340,14 @@ Team members contribute through:
 - Documentation and project maintenance.
 
 Feature branches and Pull Requests are used to organize code changes and facilitate collaboration.
+
+### Git Workflow
+
+The team uses feature branches for development and Pull Requests
+to merge changes into the main branch.
+
+Branch names follow the naming convention used by the team.
+Pull Requests are used for code review before merging.
 
 ### Future Improvements
 
