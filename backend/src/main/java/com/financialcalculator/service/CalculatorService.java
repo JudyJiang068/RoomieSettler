@@ -37,7 +37,7 @@ public class CalculatorService {
         }
 
         BigDecimal result = amount.divide(
-                BigDecimal.valueOf(people + 1),
+                BigDecimal.valueOf(people),
                 2,
                 RoundingMode.HALF_UP
         );
